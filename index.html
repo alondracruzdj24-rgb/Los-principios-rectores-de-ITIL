@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principios rectores de ITIL (Versión 5) | Servicios de TI basados en ITIL</title>
+<meta name="description" content="Investigación sobre los principios rectores de ITIL en su versión más reciente (ITIL Versión 5, 2026). Universidad Autónoma del Estado de México, UAM Valle de Teotihuacán.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f7f4; --ink:#1b2430; --muted:#5a6573; --rule:#d5dad6;
+  --deep:#12404a; --deep-2:#1d5a67; --accent:#c8552b; --wash:#e8eeec;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:3.5rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;padding-top:3rem;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.125rem;line-height:1.7}
+a{color:var(--deep-2)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
+.wide{max-width:64rem;margin:0 auto;padding:0 1.25rem}
+
+/* Encabezado institucional */
+header.top{background:var(--deep);color:#fff}
+header.top .wide{padding-top:2.5rem;padding-bottom:3rem}
+.inst{font-family:var(--sans);font-size:.95rem;line-height:1.5;margin:0 0 2.5rem;color:#cfe0e2}
+.inst strong{color:#fff;display:block;font-size:1.05rem}
+h1{font-family:var(--sans);font-weight:700;font-size:clamp(2rem,5.5vw,3.4rem);line-height:1.12;margin:0 0 1rem;max-width:20ch}
+.lede{font-size:1.2rem;max-width:40rem;margin:0 0 2rem;color:#e6f0f1}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.25rem 2rem;font-family:var(--sans);font-size:.95rem;border-top:1px solid rgba(255,255,255,.3);padding-top:1.5rem}
+.meta dt{color:#a9c6ca;font-size:.85rem;margin-bottom:.15rem}
+.meta dd{margin:0;font-weight:600}
+
+nav.toc{background:#fff;border-bottom:1px solid var(--rule);position:fixed;top:0;left:0;right:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+nav.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:row;flex-wrap:nowrap;gap:1.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch;font-family:var(--sans);font-size:.92rem}
+nav.toc li{flex:0 0 auto}
+nav.toc a{display:block;padding:.85rem 0;text-decoration:none;color:var(--ink);white-space:nowrap}
+nav.toc a:hover{color:var(--accent)}
+
+section{padding:3rem 0 .5rem}
+h2{font-family:var(--sans);font-size:1.7rem;line-height:1.25;margin:0 0 1rem;color:var(--deep)}
+h3{font-family:var(--sans);font-size:1.15rem;margin:1.5rem 0 .4rem}
+p{margin:0 0 1.1rem}
+.note{font-family:var(--sans);font-size:.9rem;color:var(--muted)}
+
+/* Línea de tiempo */
+.timeline{list-style:none;margin:1.5rem 0;padding:0 0 0 1.4rem;border-left:3px solid var(--deep-2)}
+.timeline li{position:relative;margin:0 0 1.1rem;padding-left:.4rem}
+.timeline li::before{content:"";position:absolute;left:-1.95rem;top:.55rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--paper);border:3px solid var(--deep-2)}
+.timeline li.now::before{background:var(--accent);border-color:var(--accent)}
+.timeline b{font-family:var(--sans)}
+
+/* Principios: elemento principal */
+.principles{margin:1.5rem 0}
+details.pr{border-top:1px solid var(--rule);background:transparent}
+details.pr:last-of-type{border-bottom:1px solid var(--rule)}
+details.pr summary{cursor:pointer;list-style:none;padding:1.1rem .25rem;font-family:var(--sans);font-weight:700;font-size:1.3rem;display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+details.pr summary::-webkit-details-marker{display:none}
+details.pr summary::after{content:"+";font-weight:400;font-size:1.6rem;color:var(--accent);transition:transform .2s}
+details.pr[open] summary::after{transform:rotate(45deg)}
+details.pr[open]{background:var(--wash)}
+details.pr .body{padding:0 .25rem 1.2rem}
+details.pr .body p{margin-bottom:.8rem}
+.tag{font-family:var(--sans);font-size:.85rem;color:var(--muted)}
+
+/* Ciclo de vida */
+.stages{list-style:none;margin:1.5rem 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.9rem;counter-reset:s}
+.stages li{counter-increment:s;background:#fff;border:1px solid var(--rule);border-left:5px solid var(--deep-2);padding:.8rem 1rem;font-size:1rem;line-height:1.5}
+.stages li::before{content:counter(s) ". ";font-family:var(--sans);font-weight:700;color:var(--accent)}
+.stages b{font-family:var(--sans)}
+
+blockquote{margin:1.5rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:4px solid var(--accent);font-style:italic}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.95rem;margin:1.2rem 0}
+th,td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{background:var(--wash)}
+.scroll{overflow-x:auto}
+
+/* Referencias APA 7 */
+.refs{padding:0;list-style:none}
+.refs li{padding-left:2.5rem;text-indent:-2.5rem;margin-bottom:1rem;overflow-wrap:anywhere;font-size:1.02rem}
+
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="Contenido de la página">
+  <div class="wide">
+    <ul>
+      <li><a href="#introduccion">Introducción</a></li>
+      <li><a href="#evolucion">Evolución</a></li>
+      <li><a href="#itil5">ITIL Versión 5</a></li>
+      <li><a href="#principios">Los siete principios</a></li>
+      <li><a href="#ciclo">Ciclo de vida</a></li>
+      <li><a href="#conclusiones">Conclusiones</a></li>
+      <li><a href="#referencias">Referencias</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wide">
+    <p class="inst"><strong>Universidad Autónoma del Estado de México</strong>Centro Universitario UAM, Valle de Teotihuacán</p>
+    <h1>Los principios rectores de ITIL en su versión más reciente</h1>
+    <p class="lede">Una revisión de los siete principios que orientan la gestión de productos y servicios digitales según ITIL (Versión 5, 2026) y de su relación con la edición anterior, ITIL 4.</p>
+    <dl class="meta">
+      <div><dt>Autoras</dt><dd>Ingrid Castillo<br>Abigail Álvarez<br>Alondra Cruz</dd></div>
+      <div><dt>Materia</dt><dd>Servicios de TI basados en ITIL</dd></div>
+      <div><dt>Profesor</dt><dd>CozobiGarcia</dd></div>
+    </dl>
+  </div>
+</header>
+
+
+<main class="wrap">
+
+<section id="introduccion">
+  <h2>Introducción</h2>
+  <p>ITIL es un marco de referencia para la gestión de servicios de tecnologías de la información (TI) que reúne prácticas reconocidas internacionalmente. Su propósito es ayudar a las organizaciones a crear, entregar y mejorar productos y servicios que generen valor para sus clientes y demás partes interesadas. Desde 2021, la marca ITIL pertenece a PeopleCert, que adquirió AXELOS ese mismo año (“ITIL”, 2026).</p>
+  <p>Este documento resume los siete principios rectores de ITIL, que funcionan como recomendaciones generales aplicables a cualquier organización, equipo o iniciativa, sin importar su tamaño o su método de trabajo. Se toma como referencia la versión vigente, ITIL Versión 5, publicada en 2026, y se contrasta con ITIL 4 (AXELOS, 2019), donde los principios fueron formulados.</p>
+</section>
+
+<section id="evolucion">
+  <h2>Evolución del marco</h2>
+  <p>ITIL ha tenido varias ediciones desde su origen. La siguiente línea de tiempo resume los hitos principales de las versiones 1 a 5.</p>
+  <ol class="timeline">
+    <li><b>1989 · ITIL v1.</b> Primera publicación de ITIL (“ITIL”, 2026).</li>
+    <li><b>2001 · ITIL v2.</b> Se publica la segunda versión (“ITIL”, 2026). En 2009 se anunció que su certificación sería retirada y se abrió una consulta sobre cómo continuar (“ITIL”, 2026).</li>
+    <li><b>Mayo de 2007 · ITIL v3.</b> También llamada ITIL 2007 Edition. Reúne 26 procesos y funciones agrupados en cinco volúmenes, organizados alrededor del ciclo de vida del servicio (“ITIL”, 2026). Sus cinco etapas son estrategia, diseño, transición, operación y mejora continua del servicio (PeopleCert, 2026c).</li>
+    <li><b>Julio de 2011 · ITIL 2011.</b> Actualización de ITIL v3 (“ITIL”, 2026).</li>
+    <li><b>Febrero de 2019 · ITIL 4.</b> Introduce el Sistema de Valor del Servicio, la cadena de valor de seis actividades, los siete principios rectores en su formulación actual y 34 prácticas de gestión (“ITIL”, 2026; AXELOS, 2019).</li>
+    <li><b>Junio de 2021.</b> PeopleCert completa la adquisición de AXELOS y pasa a ser propietaria de la marca ITIL (“ITIL”, 2026).</li>
+    <li class="now"><b>Enero–febrero de 2026 · ITIL Versión 5.</b> PeopleCert anuncia la nueva versión el 29 de enero y el examen ITIL Foundation (Versión 5) se habilita el 12 de febrero de 2026 (ITSM Academy, 2026; Rixmind, 2026). Unifica la gestión de productos y servicios en un ciclo de ocho actividades.</li>
+  </ol>
+</section>
+
+<section id="itil5">
+  <h2>ITIL Versión 5: qué cambia y qué permanece</h2>
+  <p>De acuerdo con PeopleCert, ITIL Versión 5 incorpora conceptos y modelos de ITIL 4 y de versiones anteriores, entre ellos el sistema de valor y los principios rectores (PeopleCert, 2026a). Una fuente especializada estima que cerca del 40 % del contenido se conserva de ITIL 4, 36 % es material nuevo y 24 % fue modificado o ampliado (Rixmind, 2026).</p>
+  <div class="scroll">
+  <table>
+    <caption class="note" style="text-align:left;padding-bottom:.4rem">Comparación resumida entre ITIL 4 e ITIL Versión 5</caption>
+    <thead><tr><th>Elemento</th><th>ITIL 4 (2019)</th><th>ITIL Versión 5 (2026)</th></tr></thead>
+    <tbody>
+      <tr><td>Principios rectores</td><td>Siete</td><td>Siete, sin cambios en nombre ni definición (Open Exam Prep, 2026b)</td></tr>
+      <tr><td>Modelo de actividades</td><td>Cadena de valor del servicio (6 actividades)</td><td>Modelo de ciclo de vida de producto y servicio (8 actividades) (PeopleCert, 2026b)</td></tr>
+      <tr><td>Alcance</td><td>Gestión de servicios</td><td>Gestión de productos y servicios digitales en un solo modelo (Invensis Learning, 2026)</td></tr>
+      <tr><td>Inteligencia artificial</td><td>No se menciona como módulo de certificación</td><td>Gobernanza de IA como módulo de la certificación (PeopleCert, 2026a)</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="principios">
+  <h2>Los siete principios rectores</h2>
+  <p>Los principios rectores fueron definidos en ITIL 4 (AXELOS, 2019) y se mantienen en la versión más reciente (Open Exam Prep, 2026b). Se aplican en conjunto, no de manera aislada, y se complementan con el modelo de mejora continua. Seleccione cada principio para ver su descripción.</p>
+
+  <div class="principles">
+    <details class="pr" open>
+      <summary>Centrarse en el valor <span class="tag">Principio 1</span></summary>
+      <div class="body">
+        <p>Todo lo que hace la organización debe vincularse, directa o indirectamente, con el valor para sus partes interesadas (AXELOS, 2019). Implica conocer quién es el consumidor del servicio, cuál es su experiencia y qué resultados espera obtener.</p>
+        <p><em>Ejemplo:</em> antes de lanzar una nueva función en una aplicación, el equipo verifica con los usuarios qué problema resuelve.</p>
+      </div>
+    </details>
+    <details class="pr">
+      <summary>Comenzar donde se está <span class="tag">Principio 2</span></summary>
+      <div class="body">
+        <p>No se parte de cero sin evaluar lo existente. Primero se observa y mide el estado actual de servicios, procesos y personas para decidir qué se puede reutilizar y qué debe cambiar (AXELOS, 2019).</p>
+        <p><em>Ejemplo:</em> una mesa de servicios revisa sus indicadores de atención antes de adquirir una herramienta nueva.</p>
+      </div>
+    </details>
+    <details class="pr">
+      <summary>Progresar iterativamente con retroalimentación <span class="tag">Principio 3</span></summary>
+      <div class="body">
+        <p>Las iniciativas grandes se dividen en partes manejables que se entregan y evalúan por etapas. La retroalimentación permite corregir el rumbo con rapidez (AXELOS, 2019).</p>
+        <p><em>Ejemplo:</em> se implementa un nuevo proceso de gestión de cambios en un área piloto antes de extenderlo a toda la institución.</p>
+      </div>
+    </details>
+    <details class="pr">
+      <summary>Colaborar y promover la visibilidad <span class="tag">Principio 4</span></summary>
+      <div class="body">
+        <p>Los resultados mejoran cuando se involucra a las personas adecuadas y se comparte la información de forma abierta, lo que reduce los silos entre áreas (AXELOS, 2019).</p>
+        <p><em>Ejemplo:</em> desarrollo, operaciones y atención al usuario comparten un tablero con el estado de los incidentes.</p>
+      </div>
+    </details>
+    <details class="pr">
+      <summary>Pensar y trabajar de forma holística <span class="tag">Principio 5</span></summary>
+      <div class="body">
+        <p>Ningún servicio funciona de manera aislada. Debe considerarse el conjunto de sus partes, sus dependencias y las cuatro dimensiones de la gestión: organizaciones y personas, información y tecnología, socios y proveedores, y flujos de valor y procesos (AXELOS, 2019).</p>
+        <p><em>Ejemplo:</em> al migrar un servicio a la nube se analiza también su efecto en el personal, los contratos y los procedimientos.</p>
+      </div>
+    </details>
+    <details class="pr">
+      <summary>Mantenerlo simple y práctico <span class="tag">Principio 6</span></summary>
+      <div class="body">
+        <p>Se prefiere el menor número de pasos necesarios para lograr un resultado útil. Si un paso no aporta valor, se elimina (AXELOS, 2019).</p>
+        <p><em>Ejemplo:</em> se simplifica un formulario de solicitud de servicio que pedía información que nunca se utilizaba.</p>
+      </div>
+    </details>
+    <details class="pr">
+      <summary>Optimizar y automatizar <span class="tag">Principio 7</span></summary>
+      <div class="body">
+        <p>Primero se optimiza el trabajo y después se automatiza lo que corresponda, para que el esfuerzo humano se dedique a tareas de mayor valor (AXELOS, 2019). En ITIL Versión 5 este principio adquiere mayor relevancia, ya que el marco se presenta como preparado para entornos con inteligencia artificial y automatización (Rixmind, 2026), y la IA se describe como apoyo al trabajo humano y no como sustituto del criterio profesional (Lumify Work, 2026).</p>
+        <p><em>Ejemplo:</em> se automatiza la clasificación inicial de solicitudes, una vez que el proceso manual ya fue depurado.</p>
+      </div>
+    </details>
+  </div>
+  <p class="note">Nota: las descripciones son un resumen en palabras propias de las autoras, basado en la formulación original de AXELOS (2019).</p>
+</section>
+
+<section id="ciclo">
+  <h2>El ciclo de vida de producto y servicio</h2>
+  <p>Una de las novedades de ITIL Versión 5 es que la cadena de valor del servicio de ITIL 4 se sustituye por un modelo de ocho actividades que aplica tanto a productos como a servicios (PeopleCert, 2026b). Las actividades se muestran como una secuencia, pero pueden repetirse o ejecutarse en paralelo, es decir, no constituyen un proceso lineal (Open Exam Prep, 2026a). Los principios rectores orientan la manera de realizar cada una.</p>
+  <ol class="stages">
+    <li><b>Descubrir.</b> Identificar oportunidades y comprender las necesidades del cliente (Invensis Learning, 2026).</li>
+    <li><b>Diseñar.</b> Crear soluciones que generen valor (Invensis Learning, 2026).</li>
+    <li><b>Adquirir.</b> Obtener los componentes y recursos requeridos.</li>
+    <li><b>Construir.</b> Desarrollar o integrar el producto o servicio.</li>
+    <li><b>Hacer la transición.</b> Poner en producción de manera controlada.</li>
+    <li><b>Operar.</b> Mantener el funcionamiento del servicio.</li>
+    <li><b>Entregar.</b> Proveer el valor acordado al consumidor.</li>
+    <li><b>Dar soporte.</b> Atender incidentes y solicitudes, y retroalimentar al resto del ciclo.</li>
+  </ol>
+  <p class="note">Los nombres de las ocho actividades provienen de PeopleCert (2026b); las descripciones de las actividades 3 a 8 son síntesis de las autoras.</p>
+</section>
+
+<section id="conclusiones">
+  <h2>Conclusiones</h2>
+  <p>Los siete principios rectores constituyen la parte más estable de ITIL: se conservaron desde ITIL 4 hasta ITIL Versión 5, mientras que el modelo de actividades, el alcance hacia productos digitales y la gobernanza de la inteligencia artificial fueron las áreas con mayores cambios. Esta continuidad permite que las organizaciones que ya trabajan con ITIL 4 aprovechen su experiencia al adoptar la nueva versión.</p>
+  <p>Para quienes se forman en gestión de servicios de TI, comprender los principios resulta más útil que memorizar procesos, porque ofrecen un criterio para tomar decisiones en contextos distintos: centrarse en el valor, partir de lo existente, avanzar en ciclos cortos, colaborar, ver el conjunto, simplificar y automatizar con juicio.</p>
+</section>
+
+<section id="referencias">
+  <h2>Referencias</h2>
+  <ul class="refs">
+    <li>AXELOS. (2019). <i>ITIL foundation: ITIL 4 edition</i>. TSO (The Stationery Office).</li>
+    <li>Invensis Learning. (2026, 7 de noviembre). <i>ITIL 4 vs ITIL v5: Key differences, updates &amp; certification changes</i>. <a href="https://www.invensislearning.com/info/itil-4-vs-itil-v5-differences">https://www.invensislearning.com/info/itil-4-vs-itil-v5-differences</a></li>
+    <li>ITIL. (2026, 7 de noviembre). En <i>Wikipedia</i>. <a href="https://en.wikipedia.org/wiki/ITIL">https://en.wikipedia.org/wiki/ITIL</a></li>
+    <li>ITSM Academy. (2026). <i>ITIL (Version 5) updates</i>. <a href="https://itsmacademy.com/press-room/itil-version-5/">https://itsmacademy.com/press-room/itil-version-5/</a></li>
+    <li>Lumify Work. (2026, 7 de noviembre). <i>ITIL Version 5 Foundation: Your gateway to modern IT service management</i>. <a href="https://www.lumifywork.com/en-au/blog/itil-r-version-5-foundation-your-gateway-to-modern-it-service-management/">https://www.lumifywork.com/en-au/blog/itil-r-version-5-foundation-your-gateway-to-modern-it-service-management/</a></li>
+    <li>Open Exam Prep. (2026a, 7 de noviembre). <i>1.2 ITIL Foundation Version 5 overview &amp; what’s new</i>. <a href="https://open-exam-prep.com/study-guides/itil-4-foundation-v5/introduction/version-5-overview-whats-new">https://open-exam-prep.com/study-guides/itil-4-foundation-v5/introduction/version-5-overview-whats-new</a></li>
+    <li>Open Exam Prep. (2026b, 3 de julio). <i>ITIL 4 Foundation to Version 5: Exam guide 2026</i>. <a href="https://open-exam-prep.com/blog/itil-4-foundation-v5-exam-guide-2026">https://open-exam-prep.com/blog/itil-4-foundation-v5-exam-guide-2026</a></li>
+    <li>PeopleCert. (2026a, 7 de noviembre). <i>ITIL FAQ</i>. <a href="https://www.peoplecert.org/help-and-support/faq-itil">https://www.peoplecert.org/help-and-support/faq-itil</a></li>
+    <li>PeopleCert. (2026b, 7 de noviembre). <i>ITIL Foundation (Version 5), what’s new?</i> ITIL.com. <a href="https://itil.com/Itil-News-and-Announcements/itil-version-5-foundation-whats-new-guide">https://itil.com/Itil-News-and-Announcements/itil-version-5-foundation-whats-new-guide</a></li>
+    <li>PeopleCert. (2026c, 7 de noviembre). <i>ITIL Managing Professional Transition (Version 5) module: Supporting the evolution for existing ITIL practitioners</i>. ITIL.com. <a href="https://itil.com/Itil-News-and-Announcements/itil-version-5-transition-for-existing-practitioners">https://itil.com/Itil-News-and-Announcements/itil-version-5-transition-for-existing-practitioners</a></li>
+    <li>Rixmind. (2026, 7 de noviembre). <i>ITIL 5: What changed and why it matters</i>. <a href="https://rixmind.com/itil-5-what-changed-and-why-it-matters/">https://rixmind.com/itil-5-what-changed-and-why-it-matters/</a></li>
+  </ul>
+</section>
+
+</main>
+
+</body>
+</html>
